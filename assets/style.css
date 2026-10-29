@@ -1,0 +1,159 @@
+/* 粤语课程共享样式 — Tufte 风格：衬线正文、宽边距、旁注、适合打印 */
+:root {
+  --ink: #111;
+  --muted: #6b6b6b;
+  --paper: #fffff8;
+  --rule: #d8d4c4;
+  --accent: #a3332d;   /* 印章红 */
+  --good: #2e6b3a;
+  --bad: #a3332d;
+  --hl: #f4efd9;
+}
+
+* { box-sizing: border-box; }
+
+html { font-size: 17px; }
+body {
+  margin: 0 auto;
+  padding: 3rem 1.5rem 5rem;
+  max-width: 46rem;
+  background: var(--paper);
+  color: var(--ink);
+  font-family: "Songti SC", "Noto Serif CJK SC", "Source Han Serif SC", Georgia, serif;
+  line-height: 1.75;
+  counter-reset: sidenote;
+}
+
+h1, h2, h3 { font-weight: 400; line-height: 1.3; }
+h1 { font-size: 2.1rem; margin: 0 0 .25rem; }
+h2 { font-size: 1.4rem; margin: 2.5rem 0 .75rem; border-bottom: 1px solid var(--rule); padding-bottom: .25rem; }
+h3 { font-size: 1.1rem; margin: 1.5rem 0 .5rem; font-style: italic; }
+.subtitle { color: var(--muted); font-style: italic; margin: 0 0 2rem; }
+.meta { font-size: .85rem; color: var(--muted); }
+
+a { color: var(--accent); text-decoration-thickness: 1px; text-underline-offset: 2px; }
+p, li { hyphens: auto; }
+
+/* 粤拼 */
+.jp {
+  font-family: "SF Mono", Menlo, Consolas, monospace;
+  font-size: .85em;
+  color: var(--accent);
+  letter-spacing: .02em;
+  white-space: nowrap;
+}
+
+/* 可点读的词：<span class="term" data-say="唔該">唔該 <span class="jp">m4 goi1</span></span> */
+.term[data-say], .say-btn { cursor: pointer; }
+.term[data-say] { border-bottom: 1px dotted var(--accent); }
+.term[data-say]:hover { background: var(--hl); }
+.say-btn {
+  border: 1px solid var(--rule);
+  background: #fff;
+  border-radius: 999px;
+  font-size: .8rem;
+  padding: 0 .5rem;
+  margin-left: .25rem;
+  vertical-align: middle;
+}
+.say-btn:hover { border-color: var(--accent); }
+.term.speaking, .say-btn.speaking { background: var(--hl); }
+
+/* 大号例句 */
+.phrase {
+  margin: 1.25rem 0;
+  padding: .75rem 1rem;
+  border-left: 3px solid var(--accent);
+  background: #fff;
+}
+.phrase .zh { font-size: 1.6rem; }
+.phrase .jp { display: block; font-size: 1rem; margin-top: .1rem; }
+.phrase .gloss { display: block; color: var(--muted); font-size: .9rem; font-style: italic; }
+
+/* 旁注（窄屏时变为行内注释） */
+.sidenote {
+  float: right;
+  clear: right;
+  width: 14rem;
+  margin: 0 -16rem 1rem 0;
+  font-size: .8rem;
+  line-height: 1.5;
+  color: var(--muted);
+}
+@media (max-width: 78rem) {
+  .sidenote { float: none; display: block; width: auto; margin: .5rem 0 1rem 1rem; padding-left: .75rem; border-left: 2px solid var(--rule); }
+}
+
+/* 表格 */
+table { border-collapse: collapse; width: 100%; margin: 1rem 0; font-size: .95rem; }
+th, td { text-align: left; padding: .4rem .6rem; border-bottom: 1px solid var(--rule); vertical-align: top; }
+th { font-weight: 400; font-style: italic; color: var(--muted); border-bottom: 1px solid var(--ink); }
+
+/* 提示框 */
+.callout { background: var(--hl); padding: .75rem 1rem; margin: 1.25rem 0; border-radius: 2px; }
+.callout strong:first-child { color: var(--accent); }
+
+/* 练习 */
+.exercise { margin: 1.5rem 0; padding: 1rem 1.25rem; border: 1px solid var(--rule); background: #fff; }
+.exercise .q { margin: 0 0 .5rem; }
+.exercise .num { color: var(--accent); margin-right: .35rem; }
+.opts { list-style: none; padding: 0; margin: .5rem 0 0; display: flex; flex-wrap: wrap; gap: .5rem; }
+.opts li {
+  border: 1px solid var(--rule);
+  padding: .3rem .9rem;
+  border-radius: 2px;
+  cursor: pointer;
+  user-select: none;
+  min-width: 7rem;
+  text-align: center;
+}
+.opts li:hover { border-color: var(--ink); }
+.opts li.right { border-color: var(--good); color: var(--good); background: #eef5ef; }
+.opts li.wrong { border-color: var(--bad); color: var(--bad); text-decoration: line-through; }
+.explain { display: none; margin-top: .6rem; font-size: .9rem; color: var(--muted); }
+.answered .explain { display: block; }
+
+.type-quiz input {
+  font-family: "SF Mono", Menlo, monospace;
+  font-size: 1rem;
+  padding: .35rem .5rem;
+  width: 100%;
+  max-width: 28rem;
+  border: 1px solid var(--rule);
+  background: var(--paper);
+}
+.type-quiz button, .exercise button.check {
+  margin-left: .4rem;
+  padding: .35rem .8rem;
+  border: 1px solid var(--ink);
+  background: var(--ink);
+  color: var(--paper);
+  cursor: pointer;
+}
+.feedback { margin-top: .5rem; font-size: .95rem; }
+.feedback .ok { color: var(--good); }
+.feedback .no { color: var(--bad); }
+.syl { font-family: "SF Mono", Menlo, monospace; padding: 0 .15rem; }
+.syl.ok { color: var(--good); }
+.syl.tone { color: #b06a00; text-decoration: underline wavy; }
+.syl.no { color: var(--bad); text-decoration: line-through; }
+
+details.recall { margin: .75rem 0; padding: .5rem 1rem; border: 1px dashed var(--rule); background: #fff; }
+details.recall summary { cursor: pointer; }
+details.recall[open] summary { color: var(--muted); margin-bottom: .4rem; }
+
+.scorebar { margin-top: 2rem; padding: .75rem 1rem; border-top: 1px solid var(--ink); font-size: .95rem; }
+
+.voice-warning { display: none; background: #fbeaea; padding: .5rem 1rem; font-size: .85rem; margin-bottom: 1.5rem; }
+.voice-warning.show { display: block; }
+
+nav.lesson-nav { margin-top: 3rem; font-size: .9rem; display: flex; justify-content: space-between; border-top: 1px solid var(--rule); padding-top: 1rem; }
+footer { margin-top: 2rem; font-size: .85rem; color: var(--muted); }
+
+@media print {
+  body { background: #fff; padding: 0; max-width: none; font-size: 11pt; }
+  .say-btn, .voice-warning, nav.lesson-nav, .scorebar { display: none !important; }
+  .exercise, .phrase { break-inside: avoid; }
+  details.recall { display: block; }
+  a { color: var(--ink); }
+}
